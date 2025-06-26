@@ -1,42 +1,58 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const countryInput = document.getElementById("country");
-    const cityInput = document.getElementById("city");
-    const weatherResults = document.getElementById("weather-results");
+  const countryInput = document.getElementById("country");
+  const cityInput = document.getElementById("city");
 
-    document.querySelectorAll(".btn").forEach(button => {
-        button.addEventListener("click", function () {
-            const country = countryInput.value.trim();
-            const city = cityInput.value.trim();
+  // Target the <form> and prevent page reload on submit
+  const form = document.querySelector("form");
 
-            if (country && city) {
-                fetchWeather(city, country);
-            } else {
-                weatherResults.innerHTML = "<p>Please enter both country and city.</p>";
-            }
-        });
-    });
+  // Weather data output spans
+  const locationSpan = document.querySelector("#location span");
+  const temperatureSpan = document.querySelector("#temperature span");
+  const conditionSpan = document.querySelector("#condition span");
+  const humiditySpan = document.querySelector("#humidity span");
+  const windSpeedSpan = document.querySelector("#wind-speed span");
 
-    function fetchWeather(city, country) {
-        const apiKey = "6868a7f3ec96b01d7c2766bc0c768db7"; // Replace with your API key
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`;
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // 🔒 Prevent form from reloading the page
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.cod === 200) {
-                    weatherResults.innerHTML = `
-                        <h2>${data.name}, ${data.sys.country}</h2>
-                        <p>Temperature: ${data.main.temp}°C</p>
-                        <p>Weather: ${data.weather[0].description}</p>
-                        <p>Humidity: ${data.main.humidity}%</p>
-                        <p>Wind Speed: ${data.wind.speed} m/s</p>
-                    `;
-                } else {
-                    weatherResults.innerHTML = `<p>City not found. Try again.</p>`;
-                }
-            })
-            .catch(error => {
-                weatherResults.innerHTML = `<p>Error fetching data.</p>`;
-            });
+    const city = cityInput.value.trim();
+    const country = countryInput.value.trim();
+
+    if (!city || !country) {
+      locationSpan.textContent = "Please enter both city and country.";
+      temperatureSpan.textContent = "--";
+      conditionSpan.textContent = "--";
+      humiditySpan.textContent = "--";
+      windSpeedSpan.textContent = "--";
+      return;
     }
+
+    const apiKey = "6868a7f3ec96b01d7c2766bc0c768db7"; // Replace with your own key if needed
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiKey}&units=metric`;
+
+    // Optionally show loading text
+    locationSpan.textContent = "Loading...";
+    temperatureSpan.textContent = "--";
+    conditionSpan.textContent = "--";
+    humiditySpan.textContent = "--";
+    windSpeedSpan.textContent = "--";
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.cod === 200) {
+          locationSpan.textContent = `${data.name}, ${data.sys.country}`;
+          temperatureSpan.textContent = `${data.main.temp} °C`;
+          conditionSpan.textContent = `${data.weather[0].description}`;
+          humiditySpan.textContent = `${data.main.humidity} %`;
+          windSpeedSpan.textContent = `${data.wind.speed} km/h`;
+        } else {
+          locationSpan.textContent = "City not found.";
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        locationSpan.textContent = "Error fetching data.";
+      });
+  });
 });

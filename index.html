@@ -1,60 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather</title>
-    <link rel="icon" type="image/png" href="assests/logo.png">
-    <link rel="stylesheet" href="styles.css">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather</title>
+  <link rel="icon" type="image/png" href="assests/logo.png" />
+  <link href="./src/output.css" rel="stylesheet" />
 </head>
-<link rel="stylesheet" href="styles.css">
-<body>
+
+<body class=" flex flex-col bg-gradient-to-tr from-purple-900 via-30%-900 to-slate-950 text-white h-screen font-sans">
+ 
+
+  <!-- Navbar -->
+  <nav class="h-20 bg-black/30 backdrop-blur-md px-10 flex items-center justify-between shadow-md">
+    <div class="flex items-center gap-4">
+      <a href="index.html">
+        <img src="assests/logo.png" alt="logo image" class="h-12 w-12" />
+      </a>
+      <h1 class="text-2xl font-bold tracking-wide">Weather Around the World</h1>
+    </div>
+    <div>
+      <a href="#" class="text-lg font-medium hover:underline hover:text-amber-300 transition">Home</a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="flex-1 flex flex-col md:flex-row items-center justify-center gap-10 p-40">
+
+    <!-- Weather Display Box -->
+    <section class="w-full md:w-1/2 bg-purple-600/10 p-8 rounded-xl shadow-2xl italic">
+      <div id="weather-results" class="text-white text-lg">
+        <h2 class="text-2xl font-semibold mb-4">Weather Information</h2>
+        <p id="location" class="mb-2">Location: <span class="font-bold">City, Country</span></p>
+        <p id="temperature" class="mb-2">Temperature: <span class="font-bold">-- °C</span></p>
+        <p id="condition" class="mb-2">Condition: <span class="font-bold">--</span></p>
+        <p id="humidity" class="mb-2">Humidity: <span class="font-bold">-- %</span></p>
+        <p id="wind-speed" class="mb-2">Wind Speed: <span class="font-bold">-- km/h</span></p>
+      </div>
+    </section>
+
+    <!-- Form Box -->
+    <section class="w-full md:w-1/2">
+      <form class="bg-purple-700/10 p-8 rounded-2xl shadow-lg text-white flex flex-col gap-6">
+        <h2 class="text-2xl font-semibold italic  text-center ">Enter Your Location</h2>
+
+        <input type="text" id="country" placeholder="Enter country name"
+          class="px-4 py-2 border italic border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"/>
+
+        <input type="text" id="city" placeholder="Enter city name"
+          class="px-4 py-2 border italic border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white"/>
+
+        <button type="submit"
+          class="bg-purple-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-purple-700 transition">
+          Submit
+        </button>
+      </form>
+    </section>
     
-    <nav>
-        <ul>
-            <li><a href="index.html">
-                <img src="assests/logo.png" alt="logo image" class="logo">
-            </a></li>
-           <p class="title">Weather in your city</p>
-            <div>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Contact us</a></li>
-            </div>
-        </ul>
-    </nav>
+    
+</main>
+<footer class="bg-black/30 backdrop-blur-md text-center py-4 bottom-0 w-full mb-0">
+  <a class="hover:text-amber-300" href="mailto:sahilsonkamble@gmail.com">@Developed by Sahil Sonkamble</a>
 
-    <main class="main">
-        <div class="box1">
-            <div id="weather-results">
-                <p>Weather details will appear here...</p>
-            </div>
-        </div>
-        
+  </footer>
 
-        
-        <div class="box2">
-                
-            <div class="form">
-                <div class="form-heading">
-                    <P style="color: black;">Enter your Location</P>
-                        
-                </div>
-                <div class="input-fields">
-                 <input type="text" name="" id="country" placeholder="Enter country name" class="input">
-                </div>
-                <div class="input-fields">
-                    <input type="text" name="" id="city" placeholder="Enter city name" class="input">
-                   
-                </div>
-                <button class="btn" style="color: black;">Submit</button>
-            </div>
-        </div>
-    </main>
-
-
-
-
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
